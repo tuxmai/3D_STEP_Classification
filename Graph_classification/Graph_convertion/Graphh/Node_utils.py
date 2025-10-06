@@ -53,6 +53,8 @@ def get_nodes_from_datas(datas):
     all_flat_nodes = []
     composed_id = 0
     for line in datas:
+        if line.startswith("/**"):
+            continue
         if line == 'ENDSEC':
             break
         id_type_arguments = line.split("=")

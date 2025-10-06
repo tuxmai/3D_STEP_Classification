@@ -4,12 +4,17 @@
 
 ---
 
-## 幻灯片 1：标题页
+## 幻灯片 0：标题页
 
 | 标题 | **3D STEP 文件组件检索的最佳方法分析** |
 | :--- | :--- |
 | 副标题 | GDL 架构对原生 B-Rep 数据的利用 |
 | 关键词 | STEP, B-Rep, 几何深度学习 (GDL), GNN, 特征表示学习 |
+
+---
+# Entity instances for a single part file
+
+![](figures/Cylinder203r.svg)
 
 ---
 

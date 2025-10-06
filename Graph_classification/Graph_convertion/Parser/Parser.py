@@ -1,6 +1,15 @@
-def parse_file(file_name, dataset_path):
-    file_name = dataset_path + file_name
-    with open(file_name) as f:
+"""
+Parses STEP files to extract headers and data sections.
+"""
+from pathlib import Path
+
+
+def parse_file(file_name: str, dataset_path: Path) -> tuple:
+    """
+    Parses a STEP file and returns its headers and data sections.
+    """
+    full_file_name = Path(dataset_path) / file_name
+    with open(full_file_name, encoding='latin-1') as f:
         data = f.read()
         data = data.replace("\n","")
         data = data.replace("\'",'')
@@ -19,9 +28,12 @@ def parse_file(file_name, dataset_path):
     return headers, datas
 
 
-def parse_header(file_name):
-    file_name = "C:/Users/Computer/PycharmProjects/graphStepSimilarity/Datasets/" + file_name
-    with open(file_name) as f:
+def parse_header(file_name: str, dataset_path: Path) -> list:
+    """
+    Parses only the header section of a STEP file and returns it as a list of strings.
+    """
+    full_file_name = Path(dataset_path) / file_name
+    with open(full_file_name, encoding='latin-1') as f:
         data = f.read()
         datas = data.split("\n")
     headers = []
