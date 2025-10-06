@@ -3,6 +3,15 @@ Parses STEP files to extract headers and data sections.
 """
 from pathlib import Path
 
+def line_clean(line: str) -> str:
+    """
+    Cleans a line by removing leading/trailing spaces, newline characters, and single quotes.
+    """
+    line = line.strip()
+    line = line.replace("\n", "")
+    line = line.replace("\'", '')
+    return line
+
 
 def parse_file(file_name: str, dataset_path: Path) -> tuple:
     """
@@ -10,10 +19,9 @@ def parse_file(file_name: str, dataset_path: Path) -> tuple:
     """
     full_file_name = Path(dataset_path) / file_name
     with open(full_file_name, encoding='latin-1') as f:
-        data = f.read()
-        data = data.replace("\n","")
-        data = data.replace("\'",'')
-        datas = data.split(";")
+        data = [line_clean(line) for line in f if line.strip() and not line.lstrip().strip().startswith("/**")]
+        joined_data = ''.join(data)
+        datas = joined_data.split(";")
     headers = []
     start_data = 0
     for i, line in enumerate(datas):

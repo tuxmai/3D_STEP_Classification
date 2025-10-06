@@ -53,7 +53,8 @@ def get_nodes_from_datas(datas):
     all_flat_nodes = []
     composed_id = 0
     for line in datas:
-        if line.startswith("/**"):
+        if not line.strip() or line.lstrip().strip().startswith("/**"):
+            breakpoint()
             continue
         if line == 'ENDSEC':
             break
