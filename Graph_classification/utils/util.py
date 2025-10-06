@@ -1,5 +1,6 @@
 import os
 import os.path as osp
+from typing import List, Tuple
 import networkx as nx
 import numpy as np
 import random
@@ -28,11 +29,19 @@ class S2VGraph(object):
         self.name_graph = name_graph
 
 
-def my_load_data(dataset, degree_as_tag=False):
+def my_load_data(dataset_path: str, degree_as_tag: bool=False) -> Tuple[List, int]:
+    """
+    dataset_path: path of the dataset, with subfolders for each class containing the .graphml.xml files
+    degree_as_tag: if True, use node degree as node tag (instead of the node type)
+    Returns:
+        g_list: list of S2VGraph (defined above) containing the graphs
+        n_classes: number of classes
+    """
+
     g_list = []
     label_dict = {}
     feat_dict = {}
-    dataset_path = osp.join('..', dataset)
+    # dataset_path = osp.join('..', dataset)
     # Carico un grafo, il valore dei nodi è il loro tipo
     for dir in os.listdir(dataset_path):
         if os.path.isdir(osp.join(dataset_path, dir)):

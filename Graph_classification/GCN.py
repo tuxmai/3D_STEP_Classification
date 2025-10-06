@@ -206,7 +206,7 @@ class GCN_CN_v4(nn.Module):
         self.scoring_layer = nn.Linear(self.bottle_neck_neurons, self.num_classes)
         self.dropout = dropout
 
-    def forward(self, adj, features):
+    def forward(self, adj, features, return_embedding=False):
         features = self.convolution_1(x=features, edge_index=adj)
         features = nn.functional.relu(features)
         features = nn.functional.dropout(features,
@@ -225,8 +225,12 @@ class GCN_CN_v4(nn.Module):
 
         pooled_features = self.attention(features)
         pooled_features = torch.t(pooled_features)
-
+        
+        if return_embedding:
+            graph_embedding = self.fully_connected_first(pooled_features)
+            return graph_embedding
         scores = nn.functional.relu(self.fully_connected_first(pooled_features))
+        
         scores = self.scoring_layer(scores)
         score = F.log_softmax(scores, dim=1)
         return score
