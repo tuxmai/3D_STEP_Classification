@@ -184,6 +184,9 @@ class GCN_CN_v3(nn.Module):
 
 
 class GCN_CN_v4(nn.Module):
+    """
+    This is the model used in the paper
+    """
     def __init__(self, feature_dim_size, num_classes, dropout):
         super(GCN_CN_v4, self).__init__()
 

@@ -1,4 +1,5 @@
 import os
+import os.path as osp
 import networkx as nx
 import numpy as np
 import random
@@ -31,14 +32,14 @@ def my_load_data(dataset, degree_as_tag=False):
     g_list = []
     label_dict = {}
     feat_dict = {}
-    dataset_path = "../Datasets/" + dataset+ "/"
+    dataset_path = osp.join('..', dataset)
     # Carico un grafo, il valore dei nodi è il loro tipo
     for dir in os.listdir(dataset_path):
-        if os.path.isdir(dataset_path + dir):
-            print("Loading class:",dir)
-            for file in os.listdir(dataset_path + dir + "/"):
-                if file.endswith(".graphml"):
-                    g = nx.read_graphml(dataset_path + dir + "/" + file)
+        if os.path.isdir(osp.join(dataset_path, dir)):
+            print("Loading class:", dir)
+            for file in os.listdir(osp.join(dataset_path, dir)):
+                if file.endswith(".graphml.xml"):
+                    g = nx.read_graphml(osp.join(dataset_path, dir, file))
                     l = int(dir)
                     node_tags = []
                     if not l in label_dict:
